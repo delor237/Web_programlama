@@ -5,7 +5,7 @@ Mini Social Media Product Sharing Platform Developed for the Web Based Programmi
 
 🚀 Overview
 
-BEUShareBox is a modern Single Page Application (SPA) that allows university students to digitally share, like, and comment on product recommendations. It bridges the gap between organic campus culture and digital social media functionality.
+BEUShareBox is a modern Single Page Application (SPA) that allows university students to digitally share, like, and comment on product recommendations. It bridges the gap between organic campus culture and digital social media functionality
 +2
 
 ✨ Features
