@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEUShareBox - Social Product Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">📦 BEUShareBox</h1>
+                <button class="close-sidebar" id="close-sidebar" aria-label="Close sidebar">✕</button>
+            </div>
+            
+            <!-- User Profile Section -->
+            <div class="user-profile" id="user-profile">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/80x80?text=User" alt="User avatar" class="avatar" id="avatar-preview">
+                    <label for="avatar-upload" class="avatar-upload-label">📷</label>
+                    <input type="file" id="avatar-upload" accept="image/*" hidden>
+                </div>
+                <input type="text" id="username-input" class="username-input" placeholder="Enter your name" value="Guest User">
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">📊</span>
+                    <div class="stat-info">
+                        <span class="stat-label">Your Products</span>
+                        <span class="stat-value" id="user-products-count">0</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">❤️</span>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Likes</span>
+                        <span class="stat-value" id="total-likes-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation/Filters -->
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-filter="all">📋 All Products</button>
+                <button class="nav-btn" data-filter="my-products">👤 My Products</button>
+            </nav>
+
+            <!-- Theme Toggle -->
+            <div class="theme-toggle-container">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌞</span>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">☰</button>
+                <div class="search-section">
+                    <div class="search-wrapper">
+                        <span class="search-icon">🔍</span>
+                        <input type="search" id="search-input" class="search-input" placeholder="Search products...">
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button id="export-btn" class="icon-btn" title="Export Data">📥</button>
+                    <label for="import-file" class="icon-btn" title="Import Data">📤</label>
+                    <input type="file" id="import-file" accept=".json" hidden>
+                </div>
+            </header>
+
+            <!-- Add Product Form -->
+            <section class="add-product-section">
+                <form id="product-form" class="product-form">
+                    <h2>Add New Product</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="text" id="title" placeholder="Product title" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="description" placeholder="Description" rows="2" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="number" id="price" placeholder="Price $" min="0" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <select id="category" required>
+                                    <option value="">Category</option>
+                                    <option value="Electronics">📱 Electronics</option>
+                                    <option value="Clothing">👕 Clothing</option>
+                                    <option value="Books">📚 Books</option>
+                                    <option value="Home">🏠 Home</option>
+                                    <option value="Sports">⚽ Sports</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group image-upload-group">
+                            <label for="product-image" class="image-upload-btn">
+                                <span class="upload-icon">📷</span>
+                                Add Image
+                            </label>
+                            <input type="file" id="product-image" accept="image/*" hidden>
+                            <div id="image-preview-container" class="image-preview-container"></div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">➕ Add Product</button>
+                </form>
+            </section>
+
+            <!-- Controls Bar -->
+            <div class="controls-bar">
+                <div class="sort-controls">
+                    <label>Sort by:</label>
+                    <select id="sort-select" class="sort-select">
+                        <option value="newest">🆕 Newest</option>
+                        <option value="price-low">💰 Price: Low to High</option>
+                        <option value="price-high">💰 Price: High to Low</option>
+                        <option value="most-liked">❤️ Most Liked</option>
+                    </select>
+                </div>
+                <div class="category-filter">
+                    <select id="category-filter" class="category-select">
+                        <option value="all">📋 All Categories</option>
+                        <option value="Electronics">📱 Electronics</option>
+                        <option value="Clothing">👕 Clothing</option>
+                        <option value="Books">📚 Books</option>
+                        <option value="Home">🏠 Home</option>
+                        <option value="Sports">⚽ Sports</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <section class="products-section">
+                <div id="products-container" class="products-grid">
+                    <!-- Products will be rendered here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="close-modal" aria-label="Close modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modal-image" src="" alt="Product image" class="modal-image">
+                </div>
+                <div class="modal-details">
+                    <p id="modal-description" class="modal-description"></p>
+                    <div class="modal-meta">
+                        <span id="modal-price" class="modal-price"></span>
+                        <span id="modal-category" class="modal-category"></span>
+                    </div>
+                    <div class="modal-stats">
+                        <span>❤️ <span id="modal-likes">0</span> likes</span>
+                        <span>💬 <span id="modal-comments-count">0</span> comments</span>
+                    </div>
+                    <div class="modal-comments">
+                        <h3>Comments</h3>
+                        <div id="modal-comments-list" class="modal-comments-list"></div>
+                        <div class="add-comment">
+                            <textarea id="modal-comment-input" placeholder="Add a comment..." rows="2"></textarea>
+                            <button id="modal-add-comment" class="btn-secondary">Post Comment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
